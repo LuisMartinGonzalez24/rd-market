@@ -23,3 +23,5 @@ src/generated/
 # Archivos locales de trabajo (no forman parte del entregable)
 .claude/
 prompt.md
+skills-lock.json
+prisma.compute.ts
