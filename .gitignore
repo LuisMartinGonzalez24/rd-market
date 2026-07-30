@@ -1,0 +1,25 @@
+# Dependencias
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Base de datos SQLite
+*.db
+*.db-journal
+dev.db*
+
+# Variables de entorno
+.env
+
+# Cliente de Prisma generado
+src/generated/
+
+# Sistema / logs
+.DS_Store
+*.log
+
+# Archivos locales de trabajo (no forman parte del entregable)
+.claude/
+prompt.md
