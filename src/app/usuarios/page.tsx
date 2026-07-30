@@ -1,5 +1,6 @@
 import Link from "next/link";
 import prisma from "@/src/lib/prisma";
+import { eliminarUsuario } from "@/src/lib/actions/usuarios";
 import { formatoFecha } from "@/src/lib/formato";
 
 export const dynamic = "force-dynamic";
@@ -45,12 +46,19 @@ export default async function UsuariosPage() {
                     {formatoFecha.format(usuario.creadoEn)}
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <Link
-                      href={`/usuarios/${usuario.id}/editar`}
-                      className="text-blue-600 hover:underline"
-                    >
-                      Editar
-                    </Link>
+                    <div className="flex items-center justify-end gap-3">
+                      <Link
+                        href={`/usuarios/${usuario.id}/editar`}
+                        className="text-blue-600 hover:underline"
+                      >
+                        Editar
+                      </Link>
+                      <form action={eliminarUsuario.bind(null, usuario.id)}>
+                        <button type="submit" className="text-red-600 hover:underline">
+                          Eliminar
+                        </button>
+                      </form>
+                    </div>
                   </td>
                 </tr>
               ))}

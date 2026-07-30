@@ -21,3 +21,27 @@ export async function crearUsuario(formData: FormData) {
   revalidatePath("/usuarios");
   redirect("/usuarios");
 }
+
+export async function actualizarUsuario(id: string, formData: FormData) {
+  const nombre = String(formData.get("nombre") ?? "").trim();
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const password = String(formData.get("password") ?? "");
+
+  if (!nombre || !email) {
+    throw new Error("Datos de usuario inválidos");
+  }
+
+  await prisma.usuario.update({
+    where: { id },
+    data: { nombre, email, ...(password ? { password } : {}) },
+  });
+
+  revalidatePath("/usuarios");
+  redirect("/usuarios");
+}
+
+export async function eliminarUsuario(id: string) {
+  await prisma.usuario.delete({ where: { id } });
+
+  revalidatePath("/usuarios");
+}
