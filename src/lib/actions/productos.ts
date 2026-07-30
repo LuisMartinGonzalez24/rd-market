@@ -25,3 +25,21 @@ export async function crearProducto(formData: FormData) {
   revalidatePath("/productos");
   redirect("/productos");
 }
+
+export async function actualizarProducto(id: string, formData: FormData) {
+  const datos = leerDatosProducto(formData);
+  if (!datos.nombre || Number.isNaN(datos.precio) || Number.isNaN(datos.stock)) {
+    throw new Error("Datos de producto inválidos");
+  }
+
+  await prisma.producto.update({ where: { id }, data: datos });
+
+  revalidatePath("/productos");
+  redirect("/productos");
+}
+
+export async function eliminarProducto(id: string) {
+  await prisma.producto.delete({ where: { id } });
+
+  revalidatePath("/productos");
+}
